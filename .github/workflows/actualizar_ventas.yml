@@ -1,0 +1,37 @@
+name: Actualizar Ventas Qperritos
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Corre todos los días a la 1am hora Colombia (6am UTC)
+  workflow_dispatch:       # También permite correrlo manualmente
+
+jobs:
+  extraer_datos:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositorio
+        uses: actions/checkout@v4
+
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar dependencias
+        run: pip install requests pandas openpyxl
+
+      - name: Correr extractor Siigo
+        env:
+          SIIGO_USERNAME: ${{ secrets.SIIGO_USERNAME }}
+          SIIGO_ACCESS_KEY: ${{ secrets.SIIGO_ACCESS_KEY }}
+          PARTNER_ID: ${{ secrets.PARTNER_ID }}
+        run: python siigo_extractor.py
+
+      - name: Subir Excel al repositorio
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add ventas_qperritos.xlsx
+          git commit -m "Actualización automática $(date +'%Y-%m-%d')"
+          git push
