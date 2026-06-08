@@ -17,9 +17,10 @@ from openpyxl.utils import get_column_letter
 # ─────────────────────────────────────────
 # CONFIGURACIÓN
 # ─────────────────────────────────────────
-USERNAME   = "hector.aristizabal@eia.edu.co"
-ACCESS_KEY = "ZjNmYTNiMDAtZGRmNi00NGRkLWJjN2MtZTEyNjFmNzMzOGY0Onl+ZHUwKCwzTUo="
-PARTNER_ID = "PowerBI"
+# Por esto:
+USERNAME   = os.environ.get("SIIGO_USERNAME")
+ACCESS_KEY = os.environ.get("SIIGO_ACCESS_KEY")
+PARTNER_ID = os.environ.get("PARTNER_ID", "PowerBI")
 
 FECHA_INICIO = "2026-05-01"
 FECHA_FIN    = datetime.today().strftime("%Y-%m-%d")  # Hoy automáticamente
