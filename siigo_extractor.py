@@ -6,7 +6,7 @@ y genera el archivo Excel listo para Power BI.
 Uso: python siigo_extractor.py
 Requisitos: pip install requests pandas openpyxl
 """
-
+import os
 import requests
 import pandas as pd
 from datetime import datetime
