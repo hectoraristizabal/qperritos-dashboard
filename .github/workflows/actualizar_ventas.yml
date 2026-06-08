@@ -2,7 +2,7 @@ name: Actualizar Ventas Qperritos
 
 on:
   schedule:
-    - cron: '0 6 * * *'  # Corre todos los días a la 1am hora Colombia (6am UTC)
+    - cron: '0 16-23,0-2 * * *'  #Esto corre cada hora entre las 11am y 2am UTC, que equivale exactamente a 11am - 9pm hora Colombia
   workflow_dispatch:       # También permite correrlo manualmente
 
 jobs:
