@@ -28,6 +28,8 @@ FECHA_INICIO = "2026-05-01"
 colombia = pytz.timezone("America/Bogota")
 FECHA_FIN = datetime.now(colombia).strftime("%Y-%m-%d")
 
+print(f"📅 Extrayendo desde {FECHA_INICIO} hasta {FECHA_FIN}")
+
 
 # ─────────────────────────────────────────
 # 1. AUTENTICACIÓN
