@@ -24,9 +24,11 @@ USERNAME   = os.environ.get("SIIGO_USERNAME")
 ACCESS_KEY = os.environ.get("SIIGO_ACCESS_KEY")
 PARTNER_ID = os.environ.get("PARTNER_ID", "PowerBI")
 
-FECHA_INICIO = "2026-05-01"
 colombia = pytz.timezone("America/Bogota")
-FECHA_FIN = datetime.now(colombia).strftime("%Y-%m-%d")
+hoy = datetime.now(colombia)
+
+FECHA_INICIO = "2026-05-01"
+FECHA_FIN    = (hoy + timedelta(days=1)).strftime("%Y-%m-%d")
 
 print(f"📅 Extrayendo desde {FECHA_INICIO} hasta {FECHA_FIN}")
 
