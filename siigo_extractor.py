@@ -108,12 +108,6 @@ def extraer_facturas(token):
 def transformar(df):
 
 
-    orden_dias = {
-    "Lunes": 1, "Martes": 2, "Miércoles": 3,
-    "Jueves": 4, "Viernes": 5, "Sábado": 6, "Domingo": 7
-    }
-    df["orden_dia"] = df["dia_semana"].map(orden_dias)
-
     # Acortar nombres de productos
     df["producto"] = df["producto"].replace({
         "Coca Cola Original": "Coca Original",
@@ -174,7 +168,20 @@ def transformar(df):
         "Monday": "Lunes", "Tuesday": "Martes", "Wednesday": "Miércoles",
         "Thursday": "Jueves", "Friday": "Viernes", "Saturday": "Sábado", "Sunday": "Domingo"
     }
+    
+    # Primero crear dia_semana
+    dias_es = {
+        "Monday": "Lunes", "Tuesday": "Martes", "Wednesday": "Miércoles",
+        "Thursday": "Jueves", "Friday": "Viernes", "Saturday": "Sábado", "Sunday": "Domingo"
+    }
     df["dia_semana"] = fecha.dt.day_name().map(dias_es)
+    
+    # DESPUÉS crear orden_dia
+    orden_dias = {
+        "Lunes": 1, "Martes": 2, "Miércoles": 3,
+        "Jueves": 4, "Viernes": 5, "Sábado": 6, "Domingo": 7
+    }
+    df["orden_dia"] = df["dia_semana"].map(orden_dias)
 
     # Reordenar columnas
     df = df[[
