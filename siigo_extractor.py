@@ -113,6 +113,11 @@ def transformar(df):
         "Coca Cola Zero":     "Coca Zero",
     })
 
+    # Reemplazar hora_Militar con franja de 30 minutos
+    df["hora_Militar"] = df["hora"].apply(
+        lambda h: f"{h[:2]}:00" if int(h[3:5]) < 30 else f"{h[:2]}:30"
+    )
+
     # Todas las saborizadas — detecta cualquier nombre que contenga "Saborizada"
     df["producto"] = df["producto"].apply(
         lambda x: x.replace("Saborizada ", "Sab. ") if "Saborizada" in str(x) else x
