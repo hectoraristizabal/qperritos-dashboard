@@ -13,6 +13,8 @@ from datetime import datetime
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
+from datetime import datetime, timedelta
+import pytz
 
 # ─────────────────────────────────────────
 # CONFIGURACIÓN
@@ -23,6 +25,7 @@ ACCESS_KEY = os.environ.get("SIIGO_ACCESS_KEY")
 PARTNER_ID = os.environ.get("PARTNER_ID", "PowerBI")
 
 FECHA_INICIO = "2026-05-01"
+colombia = pytz.timezone("America/Bogota")
 FECHA_FIN = datetime.now(colombia).strftime("%Y-%m-%d")
 
 
