@@ -107,6 +107,13 @@ def extraer_facturas(token):
 # ─────────────────────────────────────────
 def transformar(df):
 
+
+    orden_dias = {
+    "Lunes": 1, "Martes": 2, "Miércoles": 3,
+    "Jueves": 4, "Viernes": 5, "Sábado": 6, "Domingo": 7
+    }
+    df["orden_dia"] = df["dia_semana"].map(orden_dias)
+
     # Acortar nombres de productos
     df["producto"] = df["producto"].replace({
         "Coca Cola Original": "Coca Original",
@@ -171,8 +178,8 @@ def transformar(df):
 
     # Reordenar columnas
     df = df[[
-        "factura_id", "año", "mes", "dia", "dia_semana",
-        "fecha", "hora","hora_Militar", "bodega_id", "bodega_nombre",
+        "factura_id", "año", "mes", "dia", "dia_semana", "orden_dia",
+        "fecha", "hora", "hora_Militar", "bodega_id", "bodega_nombre",
         "forma_pago", "producto_cod", "producto", "cantidad",
         "factura_E", "precio_base", "impuesto", "total_venta", "total_impuestos"
     ]]
