@@ -23,7 +23,7 @@ ACCESS_KEY = os.environ.get("SIIGO_ACCESS_KEY")
 PARTNER_ID = os.environ.get("PARTNER_ID", "PowerBI")
 
 FECHA_INICIO = "2026-05-01"
-FECHA_FIN    = datetime.today().strftime("%Y-%m-%d")  # Hoy automáticamente
+FECHA_FIN = datetime.now(colombia).strftime("%Y-%m-%d")
 
 
 # ─────────────────────────────────────────
