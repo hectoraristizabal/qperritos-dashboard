@@ -59,8 +59,8 @@ def extraer_facturas(token):
             "https://api.siigo.com/v1/invoices",
             headers=headers,
             params={
-                "created_start": FECHA_INICIO,
-                "created_end":   FECHA_FIN,
+                "date_start": FECHA_INICIO,
+                "date_end":   FECHA_FIN,
                 "page":          page,
                 "page_size":     100
             },
