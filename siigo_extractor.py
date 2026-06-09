@@ -175,6 +175,10 @@ def transformar(df):
     print(f"   Facturas normales     (FV-2): {df[~df['factura_E']]['factura_id'].nunique()}")
     print(f"   Total ventas (sin impuesto):  ${df['total_venta'].sum():,.0f}")
     print(f"   Total impuestos:              ${df['total_impuestos'].sum():,.0f}")
+
+    print(f"Fecha máxima en datos: {df['fecha'].max()}")
+    print(f"Fecha mínima en datos: {df['fecha'].min()}")
+    print(f"Facturas de hoy: {len(df[df['fecha'] == FECHA_FIN])}")
     return df
 
 
