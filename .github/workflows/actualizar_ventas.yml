@@ -21,6 +21,19 @@ jobs:
       - name: Instalar dependencias
         run: pip install requests pandas openpyxl pytz
 
+      # Restaura el caché de la corrida anterior (histórico ya procesado),
+      # así el extractor solo consulta a Siigo la ventana reciente en vez
+      # de repaginar todo el historial en cada corrida horaria.
+      - name: Restaurar caché de facturas
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            cache_horas.json
+            cache_facturas.json
+          key: siigo-cache-${{ github.run_id }}
+          restore-keys: |
+            siigo-cache-
+
       - name: Correr extractor Siigo
         env:
           SIIGO_USERNAME: ${{ secrets.SIIGO_USERNAME }}
@@ -28,10 +41,21 @@ jobs:
           PARTNER_ID: ${{ secrets.PARTNER_ID }}
         run: python siigo_extractor.py
 
+      # Siempre guarda el caché actualizado (incluso si el paso anterior
+      # falla a mitad de camino) para que la próxima corrida lo aproveche.
+      - name: Guardar caché de facturas actualizado
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            cache_horas.json
+            cache_facturas.json
+          key: siigo-cache-${{ github.run_id }}
+
       - name: Subir Excel al repositorio
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add ventas_qperritos.xlsx
-          git commit -m "Actualización automática $(date +'%Y-%m-%d')"
+          git commit -m "Actualización automática $(date +'%Y-%m-%d')" || echo "Sin cambios para commitear"
           git push
