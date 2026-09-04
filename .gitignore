@@ -1,0 +1,5 @@
+.env
+cache_horas.json
+cache_facturas.json
+__pycache__/
+*.pyc
